@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\PertanyaanController;
+use App\Http\Controllers\SurveyController;
+use App\Http\Controllers\WargaController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,4 +22,9 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::middleware(['auth'])->group(function () {
+    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    Route::resource('warga', WargaController::class);
+    Route::resource('pertanyaan', PertanyaanController::class);
+    Route::resource('survey', SurveyController::class);
+});
